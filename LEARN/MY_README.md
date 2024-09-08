@@ -17,7 +17,9 @@ TypeError: Enemy.respawn() missing 1 required positional argument: 'existing_ene
 # Design Notes
 * chatdev is the core folder
 * composed_phase.py is about the control on a composition, which contains a number of sub-phases.
-* 
+* phase.py: the most important class
+* ecl/memory 
+* Notes: read the notes for ChatDev in google doc.
 
 # How to run - docker
 * https://github.com/aligneddata/ChatDev/blob/main/wiki.md#docker-start
@@ -30,8 +32,6 @@ Build Docker images
 cd ~/git/ChatDev/
 version=$(cat LEARN/DOCKER_BUILD_VER.txt)   # bump it up each time when building
 docker build -t chatdev:$version .   
-
-IP=172.25.55.19
 docker run -it -v $PWD/LEARN/pub:/pub -p 8123:8000 -e OPENAI_API_KEY=$OPENAI_API_KEY -e DISPLAY=:0 chatdev:$version
 
 
@@ -51,9 +51,14 @@ python main.py
 </pre>
 
 ## Copy the generated software out of Docker
-run
 docker cp container_id:/path/in/container /path/on/host
 
 ## Access remote browser
 * From container: python visualizer/app.py
 * From remote: http://172.25.55.19:8123/
+
+
+# TODOs
+## Docker
+* Use mounted vol, rather than CP when build the docker, so that it always refers to the latest files under development
+* Install procps
